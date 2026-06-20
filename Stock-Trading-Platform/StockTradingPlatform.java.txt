@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+public class StockTradingPlatform {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String stockName = "TCS";
+        double stockPrice = 3500.0;
+        int sharesOwned = 0;
+        double balance = 100000.0;
+
+        int choice;
+
+        do {
+            System.out.println("\n===== STOCK TRADING PLATFORM =====");
+            System.out.println("Stock: " + stockName);
+            System.out.println("Price: Rs." + stockPrice);
+            System.out.println("Balance: Rs." + balance);
+
+            System.out.println("1. Buy Shares");
+            System.out.println("2. Sell Shares");
+            System.out.println("3. View Portfolio");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter shares to buy: ");
+                    int buy = sc.nextInt();
+
+                    double cost = buy * stockPrice;
+
+                    if (cost <= balance) {
+                        sharesOwned += buy;
+                        balance -= cost;
+                        System.out.println("Purchase Successful");
+                    } else {
+                        System.out.println("Insufficient Balance");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter shares to sell: ");
+                    int sell = sc.nextInt();
+
+                    if (sell <= sharesOwned) {
+                        sharesOwned -= sell;
+                        balance += sell * stockPrice;
+                        System.out.println("Sale Successful");
+                    } else {
+                        System.out.println("Not Enough Shares");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("\n===== PORTFOLIO =====");
+                    System.out.println("Stock Name: " + stockName);
+                    System.out.println("Shares Owned: " + sharesOwned);
+                    System.out.println("Portfolio Value: Rs." + (sharesOwned * stockPrice));
+                    System.out.println("Balance: Rs." + balance);
+                    break;
+
+                case 4:
+                    System.out.println("Thank You");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 4);
+
+        sc.close();
+    }
+}
